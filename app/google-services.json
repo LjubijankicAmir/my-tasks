@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "114490592773",
+    "project_id": "mytasks-a3dbb",
+    "storage_bucket": "mytasks-a3dbb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:114490592773:android:0b3721e6ac85527d73566c",
+        "android_client_info": {
+          "package_name": "com.example.remindernotes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-7CdlQwR7kQ4K_8A33dmOQFD9z5C_yDs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
