@@ -35,10 +35,13 @@ import java.util.Calendar
 import android.app.TimePickerDialog
 import android.text.format.DateFormat
 import androidx.compose.material.icons.filled.Create
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import com.example.remindernotes.ui.theme.ReminderNotesTheme
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.window.Dialog
 import com.example.remindernotes.viewmodel.UserViewModel
@@ -161,9 +164,10 @@ fun TaskDetailScreen(navController: NavController, taskViewModel: TaskViewModel,
                             )
                             navController.popBackStack()
                         },
-                        modifier = Modifier.align(Alignment.End)
+                        modifier = Modifier.align(Alignment.End),
+                        colors = ButtonDefaults.buttonColors(containerColor = if(!isDarkTheme.value) MaterialTheme.colorScheme.primary else Color.Gray)
                     ) {
-                        Text("Add Task")
+                        Text("Add Task", color = Color.White)
                     }
                 }
             }

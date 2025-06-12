@@ -30,12 +30,16 @@ import androidx.navigation.NavController
 import com.example.remindernotes.data.User
 import com.example.remindernotes.viewmodel.UserViewModel
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.lifecycle.viewModelScope
 import com.example.remindernotes.ui.theme.ReminderNotesTheme
 import kotlinx.coroutines.launch
@@ -82,15 +86,19 @@ fun LoginScreen(
                     Spacer(modifier = Modifier.height(16.dp))
                     OutlinedTextField(
                         value = email,
+                        maxLines = 1,
                         onValueChange = { email = it },
                         label = { Text("Email") })
                     Spacer(modifier = Modifier.height(16.dp))
                     OutlinedTextField(
                         value = password,
+                        maxLines = 1,
+                        visualTransformation = PasswordVisualTransformation(),
                         onValueChange = { password = it },
                         label = { Text("Password") })
                     Spacer(modifier = Modifier.height(16.dp))
-                    Button(onClick = {
+                    Button(
+                        onClick = {
                         if (email.isBlank() || password.isBlank()) {
                             dialogMessage = "All fields must be filled"
                             showDialog = true
@@ -102,8 +110,8 @@ fun LoginScreen(
                                 }
                             }
                         }
-                    }) {
-                        Text("Login")
+                    }, colors = ButtonDefaults.buttonColors(containerColor = if(!isDarkTheme.value) MaterialTheme.colorScheme.primary else Color.Gray)) {
+                        Text("Login", color = Color.White)
                     }
                 }
             })
@@ -122,8 +130,8 @@ fun LoginScreen(
             Button(onClick = {
                 viewModel.resetLoginStatusMessage()
                 showDialog = false
-            }) {
-                Text("OK")
+            }, colors = ButtonDefaults.buttonColors(containerColor = if(!isDarkTheme.value) MaterialTheme.colorScheme.primary else Color.Gray)) {
+                Text("OK", color = Color.White)
             }
         })
     }

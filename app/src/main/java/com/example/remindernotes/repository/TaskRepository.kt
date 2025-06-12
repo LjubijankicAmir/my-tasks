@@ -63,6 +63,7 @@ class TaskRepository : ITaskRepository {
             .get().await()
             .documents
             .map { it.toTask() }
+            .sortedWith(compareBy({ it.dueDate }, { it.dueTime }))
 
     private fun DocumentSnapshot.toTask(): Task {
         val d = data!!

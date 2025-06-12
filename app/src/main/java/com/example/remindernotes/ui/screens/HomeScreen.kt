@@ -21,6 +21,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
@@ -75,6 +76,9 @@ fun HomeScreen(navController: NavController, isDarkTheme: MutableState<Boolean>,
                             title = {
                                 Text(
                                     text = "Home",
+                                    style = MaterialTheme.typography.headlineMedium,
+                                    fontWeight = FontWeight.Bold,
+                                    color = if (isDarkTheme.value) colorResource(id = R.color.white) else MaterialTheme.colorScheme.primary,
                                     textAlign = TextAlign.Center,
                                     modifier = Modifier.fillMaxWidth()
                                 )
@@ -88,34 +92,34 @@ fun HomeScreen(navController: NavController, isDarkTheme: MutableState<Boolean>,
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             // First Card Section
-                            Card(modifier = Modifier.padding(top = 70.dp, start = 16.dp, end = 16.dp).weight(1f).fillMaxWidth()) {
+                            Card(modifier = Modifier.padding(top = 70.dp, start = 16.dp, end = 16.dp).weight(1f).fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = if (isDarkTheme.value) Color.Gray else MaterialTheme.colorScheme.surface), elevation = CardDefaults.cardElevation(2.dp)) {
                                 Column(modifier = Modifier.padding(16.dp)) {
-                                    Text(text = "Welcome back", style = MaterialTheme.typography.headlineMedium)
+                                    Text(text = "Welcome back!", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold, color = if (isDarkTheme.value) colorResource(id = R.color.white) else MaterialTheme.colorScheme.primary)
                                     Spacer(modifier = Modifier.height(16.dp)) // Add space here
-                                    Text(text = "Today's Date: ${currentDateTime.value.toLocalDate().toCustomString()}", fontSize = 20.sp, fontWeight = FontWeight.Light)
+                                    Text(text = "Today's Date: ${currentDateTime.value.toLocalDate().toCustomString()}", fontSize = 20.sp, fontWeight = FontWeight.Normal, color = if (isDarkTheme.value) colorResource(id = R.color.white) else MaterialTheme.colorScheme.primary)
                                     Spacer(modifier = Modifier.height(6.dp)) // Add space here
-                                    Text(text = "Current Time: ${currentDateTime.value.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"))}", fontSize = 20.sp, fontWeight = FontWeight.Light)
+                                    Text(text = "Current Time: ${currentDateTime.value.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"))}", fontSize = 20.sp, fontWeight = FontWeight.Normal, color = if (isDarkTheme.value) colorResource(id = R.color.white) else MaterialTheme.colorScheme.primary)
                                 }
                             }
 
                             // Second Card Section
-                            Card(modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp, bottom = 48.dp).weight(1f).fillMaxWidth()) {
+                            Card(modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp, bottom = 48.dp).weight(1f).fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = if (isDarkTheme.value) Color.Gray else MaterialTheme.colorScheme.surface), elevation = CardDefaults.cardElevation(2.dp)) {
                                 Column(modifier = Modifier.padding(16.dp)) {
-                                    Text(text = "Number of Tasks: ${tasksForUser.size}", style = MaterialTheme.typography.headlineMedium) // Adjust text size here
+                                    Text(text = "Number of Tasks: ${tasksForUser.size}", style = MaterialTheme.typography.headlineMedium, color = if (isDarkTheme.value) colorResource(id = R.color.white) else MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold) // Adjust text size here
                                     Spacer(modifier = Modifier.height(16.dp))
-                                    Text(text = "Number of Tasks this month: ${tasksForUser.count { it.dueDate.month == currentDateTime.value.month }}", fontSize = 20.sp, fontWeight = FontWeight.Light) // Adjust text size here
+                                    Text(text = "Number of Tasks this month: ${tasksForUser.count { it.dueDate.month == currentDateTime.value.month }}", fontSize = 20.sp, fontWeight = FontWeight.Normal, color = if (isDarkTheme.value) colorResource(id = R.color.white) else MaterialTheme.colorScheme.primary) // Adjust text size here
                                     Spacer(modifier = Modifier.height(6.dp))
-                                    Text(text = "Number of Tasks this week: ${tasksForUser.count { it.dueDate.isAfter(LocalDate.now()) && it.dueDate.isBefore(LocalDate.now().plusWeeks(1)) }}", fontSize = 20.sp, fontWeight = FontWeight.Light) // Adjust text size here
+                                    Text(text = "Number of Tasks this week: ${tasksForUser.count { it.dueDate.isAfter(LocalDate.now()) && it.dueDate.isBefore(LocalDate.now().plusWeeks(1)) }}", fontSize = 20.sp, fontWeight = FontWeight.Normal, color = if (isDarkTheme.value) colorResource(id = R.color.white) else MaterialTheme.colorScheme.primary) // Adjust text size here
                                 }
                             }
 
                             // Third Section (Not a Card)
                             Column(modifier = Modifier.weight(1f).fillMaxWidth()) {
-                                Text(text = "UPCOMING TASKS", style = MaterialTheme.typography.headlineMedium, modifier = Modifier.align(Alignment.CenterHorizontally), fontWeight = FontWeight.Light)
+                                Text(text = "UPCOMING TASKS", style = MaterialTheme.typography.headlineMedium, modifier = Modifier.align(Alignment.CenterHorizontally), fontWeight = FontWeight.Bold, color = if (isDarkTheme.value) colorResource(id = R.color.white) else MaterialTheme.colorScheme.primary)
                                 Spacer(modifier = Modifier.height(16.dp))
                                 LazyRow {
                                     items(tasksForNextWeek) { task ->
-                                        SmallTaskItem(task = task,navController, Modifier.fillMaxWidth())
+                                        SmallTaskItem(task = task,navController, Modifier.fillMaxWidth(), isDarkTheme.value)
                                     }
                                 }
                             }
@@ -123,7 +127,7 @@ fun HomeScreen(navController: NavController, isDarkTheme: MutableState<Boolean>,
                     }
                 )
             }
-            BottomNavigationBar(navController) // Place BottomNavigationBar outside the Surface
+            BottomNavigationBar(navController, isDarkTheme.value) // Place BottomNavigationBar outside the Surface
         }
     }
 }

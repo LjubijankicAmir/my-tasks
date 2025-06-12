@@ -38,10 +38,10 @@ class UserViewModel(private val repository: UserRepository, private val userPref
         return repository.getUserByEmail(email) != null
     }
 
-    fun register(user: User) = viewModelScope.launch {
-        if(!userExists(user.email)) {
+    suspend fun register(user: User) {
+        if (!userExists(user.email)) {
             repository.register(user)
-        } else{
+        } else {
             throw IllegalArgumentException("User already exists")
         }
     }

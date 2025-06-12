@@ -95,22 +95,22 @@ fun ProfileScreen(userViewModel: UserViewModel, navController: NavController, is
                                 Spacer(modifier = Modifier.height(8.dp))
                                 Text(text = "Login or create an account to view your profile", fontWeight = FontWeight.Light)
                                 Spacer(modifier = Modifier.height(24.dp))
-                                Divider(
-                                    thickness = 2.dp,
+                                HorizontalDivider(
                                     modifier = Modifier.width(250.dp),
-                                    color = colorResource(id = R.color.defaultBlue)
+                                    thickness = 2.dp,
+                                    color = if(!isDarkTheme.value) MaterialTheme.colorScheme.primary else Color.Gray
                                 )
                                 Spacer(modifier = Modifier.height(24.dp))
                                 Row(){
                                     Button(onClick = { navController.navigate("register") },
-                                        colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.defaultBlue))) {
-                                        Text("Register")
+                                        colors = ButtonDefaults.buttonColors(containerColor = if(!isDarkTheme.value) MaterialTheme.colorScheme.primary else Color.Gray)) {
+                                        Text("Register", color = Color.White)
                                     }
                                     Spacer(modifier = Modifier.width(24.dp))
                                     Button(
                                         onClick = { navController.navigate("login") },
-                                        colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.defaultBlue))) {
-                                        Text("Login")
+                                        colors = ButtonDefaults.buttonColors(containerColor = if(!isDarkTheme.value) MaterialTheme.colorScheme.primary else Color.Gray)) {
+                                        Text("Login", color = Color.White)
                                     }
                                 }
                             }
@@ -183,7 +183,7 @@ fun ProfileScreen(userViewModel: UserViewModel, navController: NavController, is
                     }
                 )
             }
-            BottomNavigationBar(navController) // Place BottomNavigationBar outside the Surface
+            BottomNavigationBar(navController, isDarkTheme.value) // Place BottomNavigationBar outside the Surface
         }
     }
 }

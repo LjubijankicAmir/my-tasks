@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
@@ -14,6 +15,11 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
 import com.example.remindernotes.R
 
@@ -21,6 +27,27 @@ private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
     secondary = PurpleGrey80,
     tertiary = Pink80
+)
+
+val Poppins = FontFamily(
+    Font(R.font.poppins, FontWeight.Normal),
+    Font(R.font.poppins_light, FontWeight.Light),
+    Font(R.font.poppins_bold, FontWeight.Bold),
+    Font(R.font.poppins_semibold, FontWeight.SemiBold),
+)
+
+val AppTypography = Typography(
+    displayLarge = TextStyle(fontFamily = Poppins, fontWeight = FontWeight.Normal, fontSize = 57.sp),
+    titleMedium = TextStyle(fontFamily = Poppins, fontWeight = FontWeight.Normal, fontSize = 20.sp),
+    bodySmall = TextStyle(fontFamily = Poppins, fontWeight = FontWeight.Light, fontSize = 12.sp),
+    bodyMedium = TextStyle(fontFamily = Poppins, fontWeight = FontWeight.Normal, fontSize = 16.sp),
+    bodyLarge = TextStyle(fontFamily = Poppins, fontWeight = FontWeight.Normal, fontSize = 18.sp),
+    headlineLarge = TextStyle(fontFamily = Poppins, fontWeight = FontWeight.Bold, fontSize = 24.sp),
+    headlineMedium = TextStyle(fontFamily = Poppins, fontWeight = FontWeight.Normal, fontSize = 20.sp),
+    headlineSmall = TextStyle(fontFamily = Poppins, fontWeight = FontWeight.Bold, fontSize = 16.sp),
+    labelLarge = TextStyle(fontFamily = Poppins, fontWeight = FontWeight.Bold, fontSize = 14.sp),
+    labelMedium = TextStyle(fontFamily = Poppins, fontWeight = FontWeight.Bold, fontSize = 12.sp),
+    labelSmall = TextStyle(fontFamily = Poppins, fontWeight = FontWeight.Bold, fontSize = 10.sp)
 )
 
 private val LightColorScheme = lightColorScheme(
@@ -66,7 +93,7 @@ fun ReminderNotesTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = AppTypography,
         content = content
     )
 }

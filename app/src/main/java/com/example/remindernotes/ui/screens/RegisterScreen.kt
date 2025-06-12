@@ -30,11 +30,16 @@ import androidx.navigation.NavController
 import com.example.remindernotes.data.User
 import com.example.remindernotes.viewmodel.UserViewModel
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.lifecycle.viewModelScope
 import com.example.remindernotes.ui.theme.ReminderNotesTheme
 import kotlinx.coroutines.launch
@@ -45,6 +50,7 @@ import kotlinx.coroutines.launch
 fun RegisterScreen(
     viewModel: UserViewModel, navController: NavController, isDarkTheme: MutableState<Boolean>
 ) {
+    val coroutineScope = rememberCoroutineScope()
     var name by remember { mutableStateOf("") }
     var surname by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
@@ -78,26 +84,33 @@ fun RegisterScreen(
                     Spacer(modifier = Modifier.height(16.dp))
                     OutlinedTextField(
                         value = name,
+                        maxLines = 1,
                         onValueChange = { name = it },
                         label = { Text("Name") })
                     Spacer(modifier = Modifier.height(16.dp))
                     OutlinedTextField(
                         value = surname,
+                        maxLines = 1,
                         onValueChange = { surname = it },
                         label = { Text("Surname") })
                     Spacer(modifier = Modifier.height(16.dp))
                     OutlinedTextField(
                         value = email,
+                        maxLines = 1,
                         onValueChange = { email = it },
                         label = { Text("Email") })
                     Spacer(modifier = Modifier.height(16.dp))
                     OutlinedTextField(
                         value = password,
+                        maxLines = 1,
+                        visualTransformation = PasswordVisualTransformation(),
                         onValueChange = { password = it },
                         label = { Text("Password") })
                     Spacer(modifier = Modifier.height(16.dp))
                     OutlinedTextField(
                         value = password2,
+                        maxLines = 1,
+                        visualTransformation = PasswordVisualTransformation(),
                         onValueChange = { password2 = it },
                         label = { Text("Confirm password") })
                     Spacer(modifier = Modifier.height(16.dp))
@@ -112,22 +125,24 @@ fun RegisterScreen(
                             dialogMessage = "Passwords do not match"
                             showDialog = true
                         } else {
-                            viewModel.viewModelScope.launch {
-                                viewModel.register(
-                                    User(
-                                        name = name,
-                                        surname = surname,
-                                        email = email,
-                                        password = password
+
+                            coroutineScope.launch {
+                                try {
+                                    viewModel.register(
+                                        User(name = name, surname =  surname, email =  email, password = password)
                                     )
-                                )
+                                    dialogMessage = "Registration successful"
+                                    successfullRegistration = true
+                                } catch (e: Exception) {
+                                    dialogMessage = "Registration failed: ${e.message}"
+                                    successfullRegistration = false
+                                } finally {
+                                    showDialog = true
+                                }
                             }
-                            dialogMessage = "Registration successful"
-                            successfullRegistration = true
-                            showDialog = true
                         }
-                    }) {
-                        Text("Register")
+                    }, colors = ButtonDefaults.buttonColors(containerColor = if(!isDarkTheme.value) MaterialTheme.colorScheme.primary else Color.Gray)) {
+                        Text("Register", color = Color.White)
                     }
                 }
             })
@@ -149,8 +164,8 @@ fun RegisterScreen(
                 if(successfullRegistration){
                     navController.navigate("home")
                 }
-            }) {
-                Text("OK")
+            }, colors = ButtonDefaults.buttonColors(containerColor = if(!isDarkTheme.value) MaterialTheme.colorScheme.primary else Color.Gray)) {
+                Text("OK", color = Color.White)
             }
         })
     }
