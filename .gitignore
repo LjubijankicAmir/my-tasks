@@ -1,0 +1,38 @@
+# Android Studio
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Gradle
+.gradle/
+build/
+local.properties
+
+# Kotlin
+*.class
+*.jar
+*.war
+*.ear
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Packaging
+*.apk
+*.ap_
+
+# Android specific
+captures/
+output.json
+
+# Firebase / Crashlytics
+crashlytics-build.properties
+
+# Others
+.externalNativeBuild/
+.cxx/
