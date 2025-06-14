@@ -93,7 +93,7 @@ fun ProfileScreen(userViewModel: UserViewModel, navController: NavController, is
                             ) {
                                 Text(text = "You are not logged in", fontSize = 24.sp)
                                 Spacer(modifier = Modifier.height(8.dp))
-                                Text(text = "Login or create an account to view your profile", fontWeight = FontWeight.Light)
+                                Text(text = "Login or create an account to view your profile", fontWeight = FontWeight.Light, textAlign = TextAlign.Center)
                                 Spacer(modifier = Modifier.height(24.dp))
                                 HorizontalDivider(
                                     modifier = Modifier.width(250.dp),
@@ -153,7 +153,7 @@ fun ProfileScreen(userViewModel: UserViewModel, navController: NavController, is
                                         .clip(RoundedCornerShape(8.dp))
                                         .background(MaterialTheme.colorScheme.surface)
                                         .padding(16.dp)
-                                        .height(100.dp), // Set a fixed height for the card
+                                        .height(100.dp),
                                     elevation = CardDefaults.cardElevation(4.dp)
                                 ) {
                                     Column(
@@ -170,10 +170,15 @@ fun ProfileScreen(userViewModel: UserViewModel, navController: NavController, is
 
                                 Button(
                                     onClick = { userViewModel.logout()},
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = if(!isDarkTheme.value) MaterialTheme.colorScheme.primary else Color.Gray,
+                                        contentColor = Color.White
+                                    ),
                                     modifier = Modifier
-                                        .width(300.dp) // Make the button take up the full width of the parent
+                                        .width(300.dp)
                                         .height(60.dp)
                                         .clip(RoundedCornerShape(8.dp))
+
                                 ) {
                                     Text("Log Out", fontSize = 21.sp)
                                 }
@@ -183,7 +188,7 @@ fun ProfileScreen(userViewModel: UserViewModel, navController: NavController, is
                     }
                 )
             }
-            BottomNavigationBar(navController, isDarkTheme.value) // Place BottomNavigationBar outside the Surface
+            BottomNavigationBar(navController, isDarkTheme.value)
         }
     }
 }
@@ -193,8 +198,9 @@ fun ContactInfoItem(icon: ImageVector, text: String) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
-        modifier = Modifier.fillMaxWidth() // Ensure the row takes the full width of the parent
+        modifier = Modifier.fillMaxWidth()
     ) {
+        Spacer(modifier = Modifier.width(16.dp))
         Icon(
             imageVector = icon,
             contentDescription = null,

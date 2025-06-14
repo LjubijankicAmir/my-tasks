@@ -92,7 +92,7 @@ fun HomeScreen(navController: NavController, isDarkTheme: MutableState<Boolean>,
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             // First Card Section
-                            Card(modifier = Modifier.padding(top = 70.dp, start = 16.dp, end = 16.dp).weight(1f).fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = if (isDarkTheme.value) Color.Gray else MaterialTheme.colorScheme.surface), elevation = CardDefaults.cardElevation(2.dp)) {
+                            Card(modifier = Modifier.padding(top = 70.dp, start = 16.dp, end = 16.dp).weight(1f).fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = if (isDarkTheme.value) Color(0xFF1E1E1E) else MaterialTheme.colorScheme.surface), elevation = CardDefaults.cardElevation(2.dp)) {
                                 Column(modifier = Modifier.padding(16.dp)) {
                                     Text(text = "Welcome back!", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold, color = if (isDarkTheme.value) colorResource(id = R.color.white) else MaterialTheme.colorScheme.primary)
                                     Spacer(modifier = Modifier.height(16.dp)) // Add space here
@@ -103,7 +103,7 @@ fun HomeScreen(navController: NavController, isDarkTheme: MutableState<Boolean>,
                             }
 
                             // Second Card Section
-                            Card(modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp, bottom = 48.dp).weight(1f).fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = if (isDarkTheme.value) Color.Gray else MaterialTheme.colorScheme.surface), elevation = CardDefaults.cardElevation(2.dp)) {
+                            Card(modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp, bottom = 48.dp).weight(1f).fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = if (isDarkTheme.value) Color(0xFF1E1E1E) else MaterialTheme.colorScheme.surface), elevation = CardDefaults.cardElevation(2.dp)) {
                                 Column(modifier = Modifier.padding(16.dp)) {
                                     Text(text = "Number of Tasks: ${tasksForUser.size}", style = MaterialTheme.typography.headlineMedium, color = if (isDarkTheme.value) colorResource(id = R.color.white) else MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold) // Adjust text size here
                                     Spacer(modifier = Modifier.height(16.dp))
