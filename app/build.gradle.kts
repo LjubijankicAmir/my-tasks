@@ -40,6 +40,13 @@ android {
         jvmTarget = "1.8"
     }
 
+    testOptions {
+        unitTests {
+            // any Android calls (Log, Resources, etc.) will return harmless defaults
+            isReturnDefaultValues = true
+        }
+    }
+
     buildFeatures {
         compose = true
     }
@@ -56,9 +63,15 @@ android {
 }
 
 dependencies {
+
+    // Test
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+
+
     // Room
     implementation("androidx.room:room-runtime:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
+    testImplementation(libs.junit.jupiter)
     ksp("androidx.room:room-compiler:$room_version")
 
     // Firebase
