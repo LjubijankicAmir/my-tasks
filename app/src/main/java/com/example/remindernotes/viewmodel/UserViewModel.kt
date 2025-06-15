@@ -3,14 +3,14 @@ package com.example.remindernotes.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.remindernotes.data.IUserPreferences
 import com.example.remindernotes.data.User
-import com.example.remindernotes.data.UserPreferences
-import com.example.remindernotes.repository.UserRepository
+import com.example.remindernotes.repository.IUserRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class UserViewModel(private val repository: UserRepository, private val userPreferences: UserPreferences) : ViewModel() {
+class UserViewModel(private val repository: IUserRepository, private val userPreferences: IUserPreferences) : ViewModel() {
 
     private val _loggedInUser = MutableStateFlow<User?>(null)
     val loggedInUser: StateFlow<User?> get() = _loggedInUser
@@ -52,7 +52,6 @@ class UserViewModel(private val repository: UserRepository, private val userPref
             if (user != null) {
                 setLoggedIn(true)
                 userPreferences.setLoggedInUserId(user.id)
-                Log.d("UserViewModel", "Logged in user ID: ${user.id}")
                 _loggedInUser.value = user
                 return user
             } else {
@@ -73,7 +72,10 @@ class UserViewModel(private val repository: UserRepository, private val userPref
     }
     suspend fun getLoggedInUser(): User? {
         val userId = userPreferences.getLoggedInUserId()
-        Log.d("UserViewModel", "Retrieved user ID: $userId")
         return if (userId != -1) repository.getUserById(userId) else null
+    }
+
+    public override fun onCleared() {
+        super.onCleared()
     }
 }

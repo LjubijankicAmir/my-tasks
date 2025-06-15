@@ -4,13 +4,11 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.remindernotes.data.Task
-import com.example.remindernotes.data.TaskDao
-import com.example.remindernotes.data.UserDao
-import com.example.remindernotes.repository.TaskRepository
+import com.example.remindernotes.repository.ITaskRepository
 import kotlinx.coroutines.launch
 import java.time.YearMonth
 
-class TaskViewModel(private val repository: TaskRepository): ViewModel(){
+class TaskViewModel(private val repository: ITaskRepository): ViewModel(){
     val tasks = mutableStateListOf<Task>()
 
     init {
