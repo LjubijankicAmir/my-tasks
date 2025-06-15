@@ -23,7 +23,6 @@ local.properties
 Thumbs.db
 
 # Packaging
-*.apk
 *.ap_
 
 # Android specific
